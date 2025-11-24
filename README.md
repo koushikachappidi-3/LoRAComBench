@@ -132,7 +132,7 @@ Features and Walkthrough
 | LoRA_GSM8K | 0.048 | 0.190 |
 | Merged Adapter | 0.316 | 0.133 |
 
-<img width="205" height="156" alt="image" src="https://github.com/user-attachments/assets/51369a2c-4114-4db5-ad6c-4727edeae81d" />
+<img width="613" height="451" alt="image" src="https://github.com/user-attachments/assets/8e416df1-8be9-445c-af73-1427c6ec6da4" />
 
 
 Merging causes significant performance degradation, demonstrating strong task interference.
