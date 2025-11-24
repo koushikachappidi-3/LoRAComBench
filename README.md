@@ -47,10 +47,10 @@ This project demonstrates skills in **LLM fine-tuning**, **adapter merging**, **
 **Prerequisites:**  
 Before running the project, install:
 
-- **Python (3.9 or later)**
+- **Python (3.8 or later)**
 - **pip**  
 - **Git**
-- **GPU (Recommended)** – NVIDIA T4/RTX or Colab GPU
+- **GPU (Recommended)** – NVIDIA T4/RTX or Colab T4GPU
 
 ## Installation Guide
 
