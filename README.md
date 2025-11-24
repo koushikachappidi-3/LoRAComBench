@@ -50,7 +50,7 @@ Before running the project, install:
 - **Python (3.8 or later)**
 - **pip**  
 - **Git**
-- **GPU (Recommended)** – NVIDIA T4/RTX or Colab T4GPU
+- **GPU (Recommended)** – NVIDIA T4/RTX or Goggle Colab T4GPU
 
 ## Installation Guide
 
@@ -124,7 +124,7 @@ Features and Walkthrough
 -   Performs element-wise average
 
 -   Loads merged adapter into GPT-2
-### . Result Summary
+### Result Summary
 
 | Model | AG News | GSM8K |
 | --- | --- | --- |
