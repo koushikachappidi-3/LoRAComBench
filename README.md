@@ -61,6 +61,36 @@ Next Steps
 
 -   Evaluate modular routing approaches for multi-skill LoRA pipelines
 
+## Results
+
+The project evaluated three model configurations across two tasks (AG News and GSM8K):
+
+- Individual LoRA adapters  
+- Classical machine-learning baselines  
+- A merged LoRA adapter created via naive weight averaging  
+
+### Classical Baselines (AG News)
+
+| Model                 | Accuracy | Macro F1 |
+|----------------------|----------|----------|
+| Logistic Regression  | 0.85     | 0.84     |
+| Naive Bayes          | 0.82     | 0.81     |
+
+### LoRA Adapter Performance
+
+| Model           | AG News | GSM8K |
+|-----------------|---------|--------|
+| LoRA_AGNews     | 0.841   | 0.021  |
+| LoRA_GSM8K      | 0.048   | 0.190  |
+| Merged Adapter  | 0.316   | 0.133  |
+
+### Key Findings
+
+- Individual LoRA adapters perform well on **their own task** but poorly on the opposite task.  
+- The merged adapter retains **partial capability** from both tasks but experiences strong **performance degradation**.  
+- This confirms that naive merging introduces **task interference** and that LoRA composition is **not straightforward** without more advanced fusion techniques.
+
+
 ## Team & Contributions (Group-1)
 
 **1. Nisarga Vishwamanjuswamy**  
