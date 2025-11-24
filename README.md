@@ -5,7 +5,7 @@ This repo contains all work for the **LoRAComBench** project, which evaluates ho
 ## SETUP
 
 This project uses **Hugging Face Transformers** and **PEFT** for LoRA fine-tuning.  
-A GPU-enabled environment (Colab or local NVIDIA GPU) is recommended.
+A GPU-enabled environment (Colab T4GPU or local NVIDIA GPU) is recommended.
 
 Install dependencies:
 
