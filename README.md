@@ -1,81 +1,50 @@
 # LoRAComBench
 
-## Table of Contents
-- [Purpose](#purpose)
-- [Tech Stack](#Tech-Stack)  
-- [System Requirements](#system-requirements)  
-- [Installation Guide](#installation-guide)  
-- [Features and Walkthrough](#features-and-walkthrough)  
-- [Design Decisions](#design-decisions)  
+This repo contains all work for the **LoRAComBench** project, which evaluates how well **LoRA (Low-Rank Adaptation)** adapters—trained on different tasks—can be merged into a single multi-task model.
 
-## Purpose
-**LoRAComBench** is a research project designed to evaluate how well multiple **LoRA (Low-Rank Adaptation)** adapters—each trained on different tasks—can be merged into a single multi-task model.
+## SETUP
 
-The benchmark focuses on two heterogeneous NLP tasks:
-- **AG News** — Text Classification  
-- **GSM8K** — Mathematical Reasoning  
+This project uses **Hugging Face Transformers** and **PEFT** for LoRA fine-tuning.  
+A GPU-enabled environment (Colab or local NVIDIA GPU) is recommended.
 
-This project demonstrates skills in **LLM fine-tuning**, **adapter merging**, **dataset preprocessing**, **classical baselines**, and **deep learning experimentation** using **PEFT**, **GPT-2**, and **scikit-learn**.
-
-## Tech Stack
-
-**Languages & Core Tools**
-- Python 3.9+
-- Jupyter Notebook
-
-**Machine Learning & NLP**
-- Hugging Face Transformers  
-- PEFT (Parameter-Efficient Fine-Tuning)  
-- GPT-2 (124M)  
-- scikit-learn  
-- NumPy / Pandas  
-
-**Datasets**
-- AG News (Text Classification)  
-- GSM8K (Math Reasoning)
-
-**Visualization**
-- Matplotlib  
-- Seaborn  
-
-**Environment**
-- Google Colab (GPU: Tesla T4)  
-- Virtualenv / venv  
-
-## System Requirements
-
-**Prerequisites:**  
-Before running the project, install:
-
-- **Python (3.8 or later)**
-- **pip**  
-- **Git**
-- **GPU (Recommended)** – NVIDIA T4/RTX or Goggle Colab T4GPU
-
-## Installation Guide
-
-### 1. Clone the Repository
-```bash
-git clone git@github.com:koushikachappidi-3/LoRAComBench.git
-cd LoRAComBench
-```
-### 2. Create Virtual Environment (Optional)
+Install dependencies:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
+pip install -r requirements.txt
 ```
-### 3\. Install Dependencies
+Datasets (AG News, GSM8K) are automatically downloaded using the `datasets` library.
 
-`pip install -r requirements.txt`
+## Project Overview
 
-### 4\. Prepare Datasets
+The goal of this project is to analyze **LoRA adapter composition** across two very different NLP tasks:
 
-AG News and GSM8K are automatically downloaded via the `datasets` library.\
-No manual setup is required.
+1. **AG News** – Text Classification  
+2. **GSM8K** – Math Word Problem Reasoning  
 
-### 5. Run Experiments
+We compare:
+
+- Individual LoRA adapters  
+- Classical machine-learning baselines  
+- A merged LoRA adapter using naive weight averaging  
+
+Main evaluation metrics include:
+
+- Accuracy  
+- Macro F1  
+- Performance drop after merging (task interference)  
+## Implementation
+
+All implementation code is located in the `src` directory.
+
+Includes:
+
+- LoRA fine-tuning  
+- Classical baseline models  
+- Adapter merging utilities  
+- Evaluation scripts  
+- Preprocessing and EDA  
+
+Run experiments:
 
 ```bash
 python src/lora_training.py --task agnews
@@ -83,95 +52,52 @@ python src/lora_training.py --task gsm8k
 python src/lora_merge.py
 python src/evaluation.py
 ```
-
-Features and Walkthrough
-------------------------
-
-### 1\. LoRA Training
-
--   Loads GPT-2 (124M)
-
--   Applies LoRA with rank = 16
-
--   Fine-tunes separately for AG News and GSM8K
-
--   Saves adapters under `models/`
-
-### 2\. Dataset Exploration (EDA)
-
-**AG News**
-
--   Balanced dataset (30k/class)
-
--   Articles are short (20--60 words)
-
--   Length does *not* predict news category
-
-**GSM8K**
-
--   Questions: 20--80 words
-
--   Answers: 20--120 words
-
--   Moderate positive correlation (0.48)
-
--   Longer questions require deeper reasoning
-
-### 3\. Adapter Merging
-
--   Extracts LoRA matrices
-
--   Performs element-wise average
-
--   Loads merged adapter into GPT-2
-### Result Summary
-
-| Model | AG News | GSM8K |
-| --- | --- | --- |
-| LoRA_AGNews | 0.841 | 0.021 |
-| LoRA_GSM8K | 0.048 | 0.190 |
-| Merged Adapter | 0.316 | 0.133 |
-
-<img width="613" height="451" alt="image" src="https://github.com/user-attachments/assets/8e416df1-8be9-445c-af73-1427c6ec6da4" />
+Next Steps
 
 
-Merging causes significant performance degradation, demonstrating strong task interference.
+-   Explore advanced adapter fusion techniques (TIES-Merging, LoRAHub, tensor fusion)
 
-### 1\. Base Model Choice
+-   Add more tasks (dialogue, code, reasoning)
 
-GPT-2 (124M) chosen due to:
+-   Evaluate modular routing approaches for multi-skill LoRA pipelines
 
--   Fast training
+## Team & Contributions (Group-1)
 
--   Stable behavior
+**1. Nisarga Vishwamanjuswamy**  
+- Dataset acquisition (AG News, GSM8K)  
+- Preprocessing and cleaning  
+- Built input pipelines for classical ML and LoRA models  
+- Wrote dataset description and preprocessing sections  
 
--   Lower computational cost
+**2. Pramod Kumar Reddy Parvath Reddy**  
+- Implemented LoRA pipeline using GPT-2 + PEFT  
+- Adapter training and merging  
+- Integrated AG News and GSM8K  
+- Feature engineering (TF-IDF, tokenization)  
+- Model evaluation  
+- Wrote methodology and conclusion sections  
 
-### 2\. LoRA Hyperparameters
+**3. Sai Teja Kusireddy**  
+- Implemented classical ML baselines (Logistic Regression, Naive Bayes)  
+- TF-IDF feature extraction  
+- Model training and testing  
+- Wrote ML implementation sections  
 
--   Rank: 16
+**4. Sreenitha Rayapuraju**  
+- Performed full EDA  
+- Generated class distribution plots, histograms, scatterplots, and heatmaps  
+- Analyzed patterns and insights  
+- Wrote EDA sections  
 
--   Learning Rate: 2e-4
+**5. Harshitha Reddy Mannemala**  
+- Tested and debugged LoRA pipeline  
+- Verified adapter behavior  
+- Wrote the abstract and supported documentation  
+- Created graphs, tables, and visualizations  
 
--   Epochs: 3\
-    Optimized for low GPU usage while maintaining performance.
+**6. Koushika Chappidi**  
+- Evaluated classical vs LoRA models  
+- Analyzed model outputs and adapter merge behavior  
+- Implemented XAI (top features for LogReg and Naive Bayes)  
+- Wrote introduction and results/discussion sections  
 
-### 3\. Merging Strategy
-
-Naive weight averaging chosen as a **baseline** to highlight:
-
--   Knowledge conflict
-
--   Feature overwriting
-
--   Lack of task routing
-
-Future improvements may include:
-
--   TIES-Merging
-
--   Tensorized LoRA fusion
-
--   LoRAHub weighted merging
-
--   Dynamic skill-aware routing
